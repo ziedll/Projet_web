@@ -1,0 +1,190 @@
+/* --- Variables & Reset --- */
+:root {
+    --primary: #6366f1; /* Bleu Indigo */
+    --primary-hover: #4f46e5;
+    --bg-dark: #0f172a; /* Fond profond */
+    --bg-card: #1e293b; /* Fond des sections */
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* --- Header & Navigation --- */
+header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    background: linear-gradient(to right, #818cf8, #c084fc);
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+/* --- Main Content --- */
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+section {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+}
+
+h2::before {
+    content: "";
+    width: 4px;
+    height: 24px;
+    background: var(--primary);
+    margin-right: 12px;
+    border-radius: 4px;
+}
+
+/* --- Vidéo & Listes --- */
+#video {
+    text-align: center;
+}
+
+video {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 700px;
+    border: 1px solid var(--border);
+    margin-bottom: 15px;
+}
+
+#fonctionnalites ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+#fonctionnalites li {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+}
+
+/* --- Articles / Actualités --- */
+#actualites article {
+    background: rgba(15, 23, 42, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+#actualites article:hover {
+    transform: scale(1.01);
+}
+
+#actualites h3 {
+    color: #818cf8;
+    margin-bottom: 10px;
+}
+
+/* --- Formulaire (pour ton index.php précédent) --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select, textarea {
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    padding: 12px;
+    color: white;
+    border-radius: 8px;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
