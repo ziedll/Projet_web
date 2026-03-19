@@ -1,5 +1,5 @@
 function setupAnimations() {
-    // Animation du titre du header
+     Animation du titre du header
     const titre = document.querySelector('header h1');
     const logo = document.querySelector('header .logo svg');
     
@@ -15,7 +15,7 @@ function setupAnimations() {
                 i++;
                 setTimeout(ecrireTexte, 100);
             } else {
-                // Afficher le logo après l'animation d'écriture
+                 Afficher le logo après l'animation d'écriture
                 if (logo) {
                     logo.classList.add('visible');
                 }
@@ -24,7 +24,7 @@ function setupAnimations() {
         ecrireTexte();
     }
 
-    // Configuration de l'Intersection Observer pour les révéals
+     Configuration de l'Intersection Observer pour les révéals
     const options = {
         root: null,
         rootMargin: '0px',
@@ -48,7 +48,7 @@ function setupAnimations() {
 }
 
 function setupFiltering() {
-    // Récupérer tous les boutons de catégorie
+     Récupérer tous les boutons de catégorie
     const filterButtons = document.querySelectorAll('.categories button[data-target]');
     const productCards = document.querySelectorAll('.products .card[data-category]');
 
@@ -56,11 +56,11 @@ function setupFiltering() {
         button.addEventListener('click', function() {
             const target = this.getAttribute('data-target');
 
-            // Mettre à jour la classe active
+             Mettre à jour la classe active
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Filtrer les cartes
+             Filtrer les cartes
             productCards.forEach(card => {
                 if (target === 'all') {
                     card.style.display = 'block';

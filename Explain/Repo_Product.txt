@@ -6,14 +6,16 @@ MÉTHODES DÉTAILLÉES :
 
 1. save($data, $id = null)
    - Rôle : Enregistre ou modifie un produit de la boutique.
-   - Données gérées : Titre, prix (Crédits), description et image.
+   - Gestion d'image : Identique au repository d'articles (ne remplace pas l'image si aucune nouvelle n'est envoyée).
 
 2. updateQuantity($id, $newQuantity)
    - Rôle : Met à jour directement le stock d'un produit spécifique.
 
 3. reduceStock($id, $quantity)
    - Rôle : Soustrait automatiquement X unités du stock lors d'une transaction.
-   - NOTE : Bien que le stock soit actuellement réglé sur "illimité" dans les paramètres d'achat du site, cette fonction reste utile pour une future gestion manuelle.
+   ```sql
+   UPDATE boutique SET quantite = quantite - ? WHERE id = ?
+   ```
 
 STRUCTURE SQL :
 - id : Identifiant unique.
@@ -21,3 +23,8 @@ STRUCTURE SQL :
 - prix : Valeur en crédits joueurs.
 - description : Détails sur l'item.
 - image : Nom du fichier image.
+
+PRINCIPE : GESTION DU CATALOGUE
+-------------------------------
+Les produits sont les objets centraux de l'économie. Bien que le stock soit actuellement illimité par défaut dans la logique d'achat, le Repository est déjà prêt pour une gestion de **quantités limitées**.
+Chaque produit possède un prix en **Crédits**, qui est la monnaie virtuelle unique du serveur.

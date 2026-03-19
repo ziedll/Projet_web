@@ -8,15 +8,19 @@ MÉTHODES DÉTAILLÉES :
    - Logique : Récupère la liste des produits (`ProductRepository`) et le solde de l'utilisateur s'il est connecté.
 
 2. buy()
-   - Sécurité : `Auth::requireLogin()` obligatoire.
-   - Logique :
-     - Reçoit l'ID de l'item par POST.
-     - Vérifie le prix et le solde du joueur.
-     - Si suffisant : 
-       - `updateCredit()` (Retire l'argent).
-       - Met à jour le solde dans `$_SESSION` (Temps réel).
-       - Enregistre dans `PurchaseRepository::add()`.
-   - Redirection : Vers la boutique avec un message de succès personnalisé.
+   - Rôle : Traite la transaction d'achat.
+   - Sécurité : `Auth::requireLogin()` obligatoire. Vérifie si le solde est suffisant.
+   ```php
+   if ($product && $userData['credit'] >= $product['prix']) {
+       $userRepo->updateCredit($user['id'], -$product['prix']); // Débit
+       $purchaseRepo->add($userId, $itemId, $product['titre'], $product['prix']); // Historique
+   }
+   ```
 
-NOTE :
-Le stock n'est pas décompté ici car le projet est réglé sur un stock illimité.
+PRINCIPE : TRANSACTION SÉCURISÉE
+--------------------------------
+L'achat ne se contente pas de vérifier le prix, il effectue trois actions critiques en une seule fois :
+1. **Vérification** du solde en temps réel (côté serveur).
+2. **Débit** immédiat des crédits en base de données.
+3. **Enregistrement immuable** de la transaction (Snapshot) pour l'historique.
+Cela garantit qu'un joueur ne peut pas "tricher" sur son solde en manipulant le navigateur.

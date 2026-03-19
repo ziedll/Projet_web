@@ -7,16 +7,21 @@ C'est la classe mère de tous les contrôleurs du site. Elle fournit les outils 
 MÉTHODES DÉTAILLÉES :
 
 1. render($view, $data = [])
-   - Paramètres :
-     - `$view` : Le nom du fichier vue (ex: 'boutique').
-     - `$data` : Tableau associatif contenant les variables à passer à la page (ex: ['produits' => $p]).
-   - Rôle :
-     - `extract($data)` : Transforme les clés du tableau en vraies variables PHP.
-     - `ob_start()` : Démarre la capture de contenu. Tout ce qui est affiché par le template `templates/pages/$view.php` est mis en mémoire.
-     - `require_once 'layout.php'` : Affiche le gabarit général qui "englobe" le contenu capturé.
-   - Utilisation : C'est la méthode finale appelée à la fin de chaque action pour afficher la page à l'utilisateur.
+   - Paramètres : `$view` (le nom du fichier) et `$data` (les variables à passer).
+   - Technique : Utilise la capture de flux (`ob_start`) pour injecter le contenu d'une page dans un gabarit global (`layout.php`).
+   ```php
+   extract($data); // Transforme ['msg' => 'Hi'] en $msg
+   ob_start();
+   require_once 'pages/' . $view . '.php'; // Charge la vue
+   $content = ob_get_clean(); // Capture le HTML
+   require_once 'layout.php'; // Affiche dans le gabarit
+   ```
 
 2. redirect($url)
-   - Paramètre : `$url` (L'adresse de destination).
    - Rôle : Envoie un en-tête HTTP de redirection et arrête le script immédiatement.
-   - Utilisation : Après avoir soumis un formulaire ou en cas d'erreur fatale.
+
+PRINCIPE : L'ENCAPSULATION (LAYOUT)
+-----------------------------------
+Plutôt que de recopier le Header et le Footer sur chaque page, on utilise un **Layout unique**. 
+Le contrôleur "capture" le code HTML de la page spécifique et l'injecte dans la variable `$content` du layout. Cela permet de changer le design de TOUT le site en modifiant un seul fichier.
+C'est le principe fondamental du DRY (Don't Repeat Yourself).

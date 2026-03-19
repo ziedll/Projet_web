@@ -8,8 +8,8 @@
 
     <section id="video" style="padding: 60px 0; background: rgba(255,255,255,0.02); border-radius: 20px; margin: 40px 0;">
         <h2 class="reveal-1">Vidéo de présentation</h2>
-        <div class="video-container reveal-2" style="max-width: 350px; margin: 30px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); aspect-ratio: 9/16;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RbA9mt9fDDo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
+        <div class="video-container reveal-2" style="max-width: 700px; margin: 30px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); aspect-ratio: 16/9;">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I-sH53vXP2A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
         </div>
         <p class="reveal-2" style="margin-top: 20px; color: var(--text-muted);">Découvrez le serveur et ses fonctionnalités dans cette vidéo.</p>
     </section>

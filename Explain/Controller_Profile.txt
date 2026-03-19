@@ -11,16 +11,23 @@ MÉTHODES DÉTAILLÉES :
 
 3. update()
    - Rôle : Traitement du formulaire d'édition de profil.
-   - Logique :
-     - Récupère bio et liens sociaux.
-     - Gère l'upload de l'avatar via `handleAvatarUpload()`.
-     - Met à jour la BDD et la session en cours pour que la Navbar change immédiatement.
+   - Logique : Upload l'image via `handleAvatarUpload()` et synchronise la session.
+   ```php
+   $this->userRepo->updateProfile($user['id'], $data);
+   
+   // Sync session : Important pour que la Navbar change immédiatement
+   $freshUser = $this->userRepo->getById($user['id']);
+   $_SESSION['user'] = $freshUser;
+   ```
 
 4. history()
    - Rôle : Affiche la liste des transactions du joueur via la vue `history`.
 
 5. handleAvatarUpload($file) (Privé)
-   - Rôle : Similaire à celui de l'admin, mais stocke spécifiquement dans `uploads/avatars/` pour une meilleure organisation.
+   - Rôle : Stocke spécifiquement dans `uploads/avatars/` pour une meilleure organisation.
 
-UTILISATION :
-Cœur du système "Axe 2 : Espace Joueur".
+PRINCIPE : SYNCHRONISATION DE SESSION
+--------------------------------------
+Lorsqu'un utilisateur change d'avatar ou de description, les données en base de données changent, mais la **Session PHP** (qui contient l'ancienne image) doit être mise à jour manuellement. 
+Sans cette étape (`$_SESSION['user'] = $freshUser`), l'utilisateur croirait que ses changements n'ont pas fonctionné jusqu'à sa prochaine reconnexion.
+C'est la clé de l'expérience utilisateur (UX) dans cet "Espace Joueur".

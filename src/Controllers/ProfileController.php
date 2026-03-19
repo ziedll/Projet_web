@@ -35,13 +35,13 @@ class ProfileController extends Controller {
                 'youtube' => $_POST['youtube'] ?? ''
             ];
 
-            // Handle Avatar Upload
+            
             $avatar = $this->handleAvatarUpload($_FILES['avatar']);
             if ($avatar) $data['avatar'] = $avatar;
 
             $this->userRepo->updateProfile($user['id'], $data);
             
-            // Sync session
+            
             $freshUser = $this->userRepo->getById($user['id']);
             $_SESSION['user'] = $freshUser;
             

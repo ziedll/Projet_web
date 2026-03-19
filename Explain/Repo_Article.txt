@@ -10,13 +10,18 @@ MÉTHODES DÉTAILLÉES :
 2. getLatest($limit = 3)
    - Paramètre : Le nombre d'articles à récupérer.
    - Rôle : Utilisé sur la page d'accueil pour n'afficher qu'un aperçu des dernières news.
+   ```sql
+   SELECT * FROM article ORDER BY date_de_creation DESC LIMIT 3
+   ```
 
 3. save($data, $id = null)
    - Paramètres : `$data` (Données du formulaire), `$id` (ID de l'article si mise à jour).
+   - Rôle : Méthode "intelligente" pour Créer ou Modifier.
    - Logique :
      - Si `$id` est fourni : Exécute une requête `UPDATE`. Gère la modification optionnelle de l'image.
      - Si `$id` est `null` : Exécute une requête `INSERT` pour créer un nouvel article.
-   - Utilisation : Utilisé dans l'administration pour ajouter ou modifier des news.
 
-NOTE :
-Cette classe permet de séparer la structure de la base de données (colonnes 'titre', 'content', 'image') de la logique d'affichage.
+PRINCIPE : SÉPARATION DU CONTENU ET DU CODE
+-------------------------------------------
+Plutôt que d'écrire du texte directement dans les pages HTML, nous utilisons ce Repository pour transformer les lignes de la base de données SQL en objets PHP utilisables.
+Cela permet de changer le design du site (CSS) sans jamais toucher aux articles eux-mêmes. C'est le cœur du système d'actualités dynamique du projet.

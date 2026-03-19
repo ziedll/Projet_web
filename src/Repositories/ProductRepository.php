@@ -2,14 +2,14 @@
 namespace App\Repositories;
 
 use App\Core\Database;
-use App\Repositories\BaseRepository; // Assuming BaseRepository is in the same namespace or needs to be imported
+use App\Repositories\BaseRepository; 
 
 class ProductRepository extends BaseRepository {
     protected $table = 'boutique';
 
-    // The constructor, getAll, and delete methods are now handled by BaseRepository.
-    // If getById in BaseRepository is generic, this specific implementation might be redundant.
-    // However, the instruction snippet explicitly includes it, so we'll keep it as provided.
+    
+    
+    
     public function save($data, $id = null) {
         if ($id) {
             if (isset($data['image'])) {

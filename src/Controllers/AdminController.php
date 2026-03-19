@@ -31,7 +31,7 @@ class AdminController extends Controller {
             'users' => $this->userRepo->getAll()
         ];
 
-        // Handle edit states
+        
         if (isset($_GET['edit'])) {
             $id = (int)$_GET['edit'];
             if ($section === 'articles') $data['article_to_edit'] = $this->articleRepo->getById($id);

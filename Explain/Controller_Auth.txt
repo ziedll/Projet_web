@@ -6,18 +6,35 @@ MÉTHODES DÉTAILLÉES :
 1. login()
    - Logique :
      - Si l'utilisateur est déjà connecté, le redirige vers l'accueil.
-     - Si une méthode POST est reçue : Cherche l'utilisateur par son email.
+     - Cherche l'utilisateur par son email.
      - Vérifie le mot de passe via `password_verify()`.
-     - Si OK : Connecte via `Auth::login($user)`.
-     - Si KO : Affiche une erreur.
+   ```php
+   if ($user && password_verify($password, $user['mdp'])) {
+       Auth::login($user); // Passage à la session
+       $this->redirect(BASE_URL);
+   }
+   ```
 
 2. register()
    - Logique :
      - Vérifie si l'email existe déjà en base.
-     - Si libre : Hashe le mot de passe (`PASSWORD_DEFAULT`), donne des crédits de bienvenue (100) et crée le compte.
+     - Hashe le mot de passe et crée le compte avec bonus (100 crédits).
+   ```php
+   $hashed = password_hash($password, PASSWORD_DEFAULT);
+   $userRepo->create([
+       'pseudo' => $pseudo, 
+       'mdp' => $hashed, // Stockage sécurisé
+       'credit' => 100 // Bonus de bienvenue
+   ]);
+   ```
 
 3. logout()
    - Rôle : Termine la session et renvoie vers l'accueil.
 
-SÉCURITÉ :
-Toute la sécurité repose sur le hashage (non réversible) des mots de passe. N'essayez jamais de lire un mot de passe en clair dans la base de données !
+PRINCIPE : LE HASHAGE SÉCURISÉ
+-----------------------------
+Les mots de passe ne sont JAMAIS stockés en clair.
+- On utilise `password_hash()` pour transformer le mot de passe en empreinte illisible.
+- On utilise `password_verify()` pour tester si le mot de passe saisi correspond à cette empreinte.
+C'est la norme de sécurité absolue pour protéger les données utilisateurs.
+Même un administrateur ayant accès à la base de données ne peut pas déchiffrer votre mot de passe original.

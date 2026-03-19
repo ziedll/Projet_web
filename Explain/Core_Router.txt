@@ -2,25 +2,22 @@ CLASSE : Router (Core)
 FICHIER : src/Core/Router.php
 
 DESCRIPTION :
-Analyse les URLs saisies par l'utilisateur et les traduit en actions dans le code (Contrôleurs).
+Analyse les URLs saisies (ex: `/boutique`) et les traduit en actions dans le code (Contrôleurs).
 
 MÉTHODES DÉTAILLÉES :
 
 1. add($route, $controller, $method)
-   - Paramètres :
-     - `$route` : L'URL (ex: '/boutique').
-     - `$controller` : Le nom du contrôleur à appeler (ex: 'BoutiqueController').
-     - `$method` : La fonction interne à exécuter (ex: 'index').
-   - Rôle : Remplit un tableau interne (`$routes`) qui sert de dictionnaire au projet.
+   - Rôle : Remplit le dictionnaire des routes autorisées du site.
 
 2. run()
-   - Rôle : La méthode principale appelée à chaque chargement de page.
-   - Logique :
-     - Récupère le paramètre `url` envoyé par le `.htaccess`.
-     - Nettoie l'URL pour qu'elle ressemble toujours à `/nom-de-la-page`.
-     - Cherche si cette URL existe dans le dictionnaire créé par `add()`.
-     - Si oui : Instancie le contrôleur, vérifie que la méthode existe, et l'exécute.
-     - Si non : Envoie un code d'erreur HTTP 404.
+   - Rôle : La méthode principale qui lance le site.
+   - Technique : Utilise l'instanciation dynamique pour appeler le bon contrôleur.
+   ```php
+   $controller = new $controllerName(); // Magie de PHP
+   $controller->$methodName(); // Appelle l'action demandée
+   ```
 
-NOTE TECHNIQUE :
-Le Router utilise la réflexion PHP dynamique pour instancier les classes (`new $controllerName()`), ce qui permet d'ajouter des pages simplement en écrivant une ligne dans `index.php`.
+PRINCIPE : LE ROUTAGE DYNAMIQUE
+-------------------------------
+Tout le site passe par un seul point d'entrée (`index.php`). Le Router compare l'URL saisie avec son dictionnaire interne. 
+S'il trouve une correspondance, il "lance" le contrôleur associé. Cela permet d'avoir des URLs propres et sécurisées, cachant l'arborescence réelle des fichiers.

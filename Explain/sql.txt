@@ -30,6 +30,7 @@ Voici le schéma actuel de votre base de données et le rôle de chaque table :
 4. TABLE `purchase_history` (NEW)
 ---------------------------
 - Fait le lien entre un acheteur et un produit.
+- Utilise le **Snapshotting** : Stocke en dur le nom et le prix au moment de l'achat (pas de jointure dynamique nécessaire pour l'affichage).
 - Garde une trace immuable des transactions (date et prix payé).
 
 COMMANDE POUR APPLIQUER LES CHANGEMENTS :

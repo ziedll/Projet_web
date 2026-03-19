@@ -6,12 +6,22 @@ MÉTHODES DÉTAILLÉES :
 
 1. add($userId, $itemId, $itemName, $price)
    - Rôle : Enregistre définitivement une transaction.
-   - Données stockées : L'ID du joueur, l'ID du produit, le nom de l'item (pour garder une trace même si l'item est supprimé plus tard) et le prix payé.
+   - Données : L'ID du joueur, l'ID du produit, le nom de l'item et le prix payé.
 
 2. getByUserId($userId)
    - Paramètre : ID du joueur.
    - Retour : Liste des achats classés du plus récent au plus ancien.
-   - Utilisation : Affiche l'historique personnel sur la page de profil du joueur.
+
+CONCEPTION : L'ABSENCE DE LIEN DYNAMIQUE (SNAPSHOT)
+---------------------------------------------------
+Pourquoi l'historique semble fonctionner "sans lien" avec la table boutique ?
+Le système utilise le principe du **Data Snapshotting** (Capture de données) :
+- On stocke le **NOM** et le **PRIX** actuel en dur au moment de l'achat.
+- ```php
+  $purchaseRepo->add($userId, $id, $product['titre'], $product['prix']);
+  ```
+- Cela garantit que si un produit est supprimé ou change de prix, le reçu du joueur reste exact.
+- L'affichage ne nécessite aucune jointure SQL complexe, rendant l'historique robuste et autonome.
 
 IMPORTANCE :
-Cette classe est critique car elle constitue la preuve de transaction pour les joueurs. Elle est liée à la table `user` via une clé étrangère avec suppression en cascade.
+Preuve de transaction critique liée à la table `user` via une clé étrangère avec suppression en cascade.

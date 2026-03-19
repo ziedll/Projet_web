@@ -7,19 +7,17 @@ Classe abstraite regroupant les fonctionnalités communes à tous les accès aux
 MÉTHODES DÉTAILLÉES :
 
 1. __construct()
-   - Rôle : Récupère automatiquement l'objet PDO via `Database::getInstance()` et l'affecte à `$this->db` pour que les classes enfants puissent l'utiliser.
+   - Rôle : Récupère automatiquement l'objet PDO via `Database::getInstance()` pour que les enfants l'utilisent via `$this->db`.
 
-2. getAll()
-   - Retour : Liste complète d'enregistrements (array).
-   - Rôle : Récupère toutes les lignes de la table définie (ex: tous les articles) du plus récent au plus ancien.
+2. getAll() / getById($id) / delete($id)
+   - Rôle : Fonctions CRUD génériques utilisables par n'importe quelle table SQL.
+   ```php
+   // Exemple générique utilisé par toutes les tables :
+   $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = ?");
+   ```
 
-3. getById($id)
-   - Paramètre : `$id` (L'ID de l'élément en BDD).
-   - Retour : Un tableau représentant la ligne trouvée ou `false`.
-   - Rôle : Cherche un enregistrement précis via une requête préparée (sécurisée contre les injections SQL).
-
-4. delete($id)
-   - Rôle : Supprime définitivement une ligne de la table spécifiée par son identifiant.
-
-NOTE TECHNIQUE :
-La variable `$this->table` définie dans chaque repository enfant permet à ces fonctions de savoir sur quelle table SQL elles doivent agir.
+PRINCIPE : L'ABSTRACTION DE DONNÉES
+-----------------------------------
+En regroupant les requêtes SQL les plus courantes dans cette classe de base, on réduit drastiquement les risques d'erreurs. 
+Chaque Repository spécifique (User, Article, etc.) hérite de ces fonctions et n'a plus qu'à définir le nom de sa table (`protected $table`). 
+Cela rend l'architecture extrêmement flexible et robuste.

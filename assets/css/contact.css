@@ -1,5 +1,5 @@
 
-/* RESET */
+
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ body {
     color: white;
 }
 
-/* HEADER */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -47,13 +47,13 @@ nav a.active {
     color: #38bdf8;
 }
 
-/* MAIN CONTENT */
+
 main {
     flex: 1;
     width: 100%;
 }
 
-/* HERO SECTION */
+
 .contact-hero {
     text-align: center;
     padding: 60px 20px;
@@ -69,7 +69,7 @@ main {
     color: #94a3b8;
 }
 
-/* FORM SECTION */
+
 .contact-form {
     max-width: 600px;
     margin: 40px auto;
@@ -135,7 +135,7 @@ button:hover {
     background-color: #0ea5e9;
 }
 
-/* STATUS MESSAGE */
+
 p[style*="color:red"] {
     color: #ef4444 !important;
     padding: 10px;
@@ -152,7 +152,7 @@ p[style*="color:green"] {
     border-radius: 8px;
 }
 
-/* FOOTER */
+
 footer {
     text-align: center;
     padding: 20px;

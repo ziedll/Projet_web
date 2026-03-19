@@ -35,10 +35,10 @@ class BoutiqueController extends Controller {
             if ($product && $userData['credit'] >= $product['prix']) {
                 $userRepo->updateCredit($user['id'], -$product['prix']);
                 
-                // Sync session credits
+                
                 $_SESSION['user']['credit'] -= $product['prix'];
                 
-                // Record in history
+                
                 $purchaseRepo = new \App\Repositories\PurchaseRepository();
                 $purchaseRepo->add($user['id'], $itemId, $product['titre'], $product['prix']);
                 

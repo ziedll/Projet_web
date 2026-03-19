@@ -5,11 +5,20 @@ MÉTHODES DÉTAILLÉES :
 
 1. index()
    - Rôle : Point d'entrée unique pour les actualités.
-   - Logique :
-     - Vérifie si un paramètre `id` est présent dans l'URL.
-     - S'il y a un ID : Récupère l'article correspondant et l'affiche via la vue 'actualite_detail'.
-     - S'il n'y a PAS d'ID : Récupère TOUS les articles et les affiche sous forme de grille via la vue 'actualite'.
-   - Vue : `templates/pages/actualite.php` ou `templates/pages/actualite_detail.php`.
+   - Logique : 
+     - Si `$_GET['id']` est présent : Affiche un article seul (`actualite_detail.php`).
+     - Sinon : Affiche la liste complète (`actualite.php`).
+   ```php
+   if ($id) {
+       $article = $repo->getById($id);
+       $this->render('actualite_detail', ['article' => $article]);
+   } else {
+       $articles = $repo->getAll();
+       $this->render('actualite', ['articles' => $articles]);
+   }
+   ```
 
-INTERACTION :
-Fait appel à `ArticleRepository`. Cette méthode montre la puissance des paramètres GET pour réutiliser une seule route pour la liste et le détail.
+PRINCIPE : ROUTE DOUBLE USAGE
+-----------------------------
+Cette méthode utilise une seule route URL pour deux fonctionnalités différentes. Cela simplifie la maintenance et permet de partager la même logique de récupération de données (`ArticleRepository`) pour la liste et pour le détail.
+C'est un exemple parfait de réutilisation de code via le contrôleur.

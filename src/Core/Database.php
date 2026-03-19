@@ -9,7 +9,7 @@ class Database {
     private $pdo;
 
     private function __construct() {
-        // Ensure .env is loaded if not already
+        
         if (!isset($_ENV['DB_HOST'])) {
             $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
             $dotenv->load();

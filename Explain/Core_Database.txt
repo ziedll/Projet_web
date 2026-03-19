@@ -2,23 +2,25 @@ CLASSE : Database (Core)
 FICHIER : src/Core/Database.php
 
 DESCRIPTION :
-Gère la connexion à la base de données MySQL. Elle utilise le pattern Singleton pour ne jamais ouvrir plus d'une connexion par page, ce qui améliore les performances.
+Gère la connexion à la base de données MySQL. Elle utilise le pattern Singleton pour ne jamais ouvrir plus d'une connexion par page.
 
 MÉTHODES DÉTAILLÉES :
 
 1. __construct() (Privé)
-   - Rôle : Constructeur de la classe. Il est privé pour empêcher de créer plusieurs instances manuellement (`new Database()`).
-   - Logique : 
-     - Charge les variables d'environnement (`.env`) via `phpdotenv`.
-     - Initialise l'objet `PDO` avec les paramètres de connexion (host, dbname, charset).
-     - Configure PDO pour lancer des exceptions en cas d'erreur (`ERRMODE_EXCEPTION`) et retourner des tableaux associatifs par défaut.
+   - Rôle : Initialise l'objet `PDO` avec les paramètres du fichier `.env`. Privé pour empêcher les doublons de connexion.
 
 2. getInstance() (Statique)
-   - Retour : L'objet `PDO` actif.
-   - Rôle : C'est l'unique point d'accès à la base de données. Si l'instance n'existe pas, elle la crée ; sinon, elle retourne celle déjà existante.
+   - Rôle : Point d'accès unique à la BDD.
+   ```php
+   public static function getInstance() {
+       if (self::$instance === null) {
+           self::$instance = new PDO(...);
+       }
+       return self::$instance;
+   }
+   ```
 
-PARAMÈTRES DE CONFIGURATION (via .env) :
-- DB_HOST : Adresse du serveur (ex: localhost)
-- DB_NAME : Nom de la base de données
-- DB_USER : Nom d'utilisateur (ex: root)
-- DB_PASS : Mot de passe (souvent vide sous WAMP/XAMPP)
+PRINCIPE : LE SINGLETON
+-----------------------
+Le Singleton garantit qu'une seule et unique connexion à la base de données est ouverte pendant toute la durée du chargement d'une page. 
+Cela économise des ressources serveur et centralise la configuration de sécurité. C'est un pilier de la performance du projet.

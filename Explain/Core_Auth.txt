@@ -11,8 +11,14 @@ MÉTHODES DÉTAILLÉES :
    - Utilisation : Appelée en interne par presque toutes les autres méthodes pour garantir l'accès à `$_SESSION`.
 
 2. login($user)
-   - Paramètre : `$user` (tableau associatif contenant les données de l'utilisateur provenant de la BDD).
-   - Rôle : Initialise la session et enregistre l'utilisateur connecté dans `$_SESSION['user']`.
+   - Paramètre : `$user` contenant les données de la BDD.
+   - Rôle : Initialise la session et enregistre l'utilisateur connecté.
+   ```php
+   public static function login($user) {
+       self::startSession();
+       $_SESSION['user'] = $user;
+   }
+   ```
 
 3. logout()
    - Rôle : Déconnecte l'utilisateur en supprimant la clé `user` de la session et en détruisant totalement la session PHP pour plus de sécurité.
@@ -26,3 +32,18 @@ MÉTHODES DÉTAILLÉES :
 
 6. requireLogin() & requireAdmin()
    - Rôle : Gardiens d'accès. Si la condition n'est pas remplie, elles arrêtent l'exécution (`exit`) et redirigent immédiatement l'utilisateur vers la page de connexion ou l'accueil.
+   ```php
+   public static function requireAdmin() {
+       self::startSession();
+       if (!self::isAdmin()) {
+           header('Location: ' . BASE_URL);
+           exit;
+       }
+   }
+   ```
+
+PRINCIPE : AUTHENTIFICATION PAR ÉTAT (SESSION)
+---------------------------------------------
+- Une fois connecté, l'utilisateur est stocké "en mémoire" sur le serveur via `$_SESSION`.
+- Cela permet des vérifications de sécurité ultra-rapides (`isAdmin()`) sans avoir à interroger la base de données SQL à chaque chargement de page.
+- Le serveur reconnaît l'utilisateur grâce à son cookie de session.

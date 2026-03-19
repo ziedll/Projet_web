@@ -9,7 +9,6 @@ class LeaderboardController extends Controller {
         $userRepo = new UserRepository();
         $players = $userRepo->getLeaderboard();
         
-        // Ajouter une propriété "rank" pour l'affichage
         foreach ($players as $index => &$player) {
             $player['rank'] = $index + 1;
         }

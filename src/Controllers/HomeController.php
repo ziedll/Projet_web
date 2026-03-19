@@ -10,7 +10,7 @@ class HomeController extends Controller {
         
         $msg = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
-            // Logic to send email would go here
+            
             $msg = "Merci pour votre message ! Nous vous répondrons dès que possible.";
         }
 
