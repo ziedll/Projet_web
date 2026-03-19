@@ -1,0 +1,15 @@
+CONTRÔLEUR : ActualiteController
+FICHIER : src/Controllers/ActualiteController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. index()
+   - Rôle : Point d'entrée unique pour les actualités.
+   - Logique :
+     - Vérifie si un paramètre `id` est présent dans l'URL.
+     - S'il y a un ID : Récupère l'article correspondant et l'affiche via la vue 'actualite_detail'.
+     - S'il n'y a PAS d'ID : Récupère TOUS les articles et les affiche sous forme de grille via la vue 'actualite'.
+   - Vue : `templates/pages/actualite.php` ou `templates/pages/actualite_detail.php`.
+
+INTERACTION :
+Fait appel à `ArticleRepository`. Cette méthode montre la puissance des paramètres GET pour réutiliser une seule route pour la liste et le détail.

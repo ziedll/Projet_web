@@ -1,0 +1,22 @@
+CONTRÔLEUR : BoutiqueController
+FICHIER : src/Controllers/BoutiqueController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. index()
+   - Rôle : Affiche la boutique.
+   - Logique : Récupère la liste des produits (`ProductRepository`) et le solde de l'utilisateur s'il est connecté.
+
+2. buy()
+   - Sécurité : `Auth::requireLogin()` obligatoire.
+   - Logique :
+     - Reçoit l'ID de l'item par POST.
+     - Vérifie le prix et le solde du joueur.
+     - Si suffisant : 
+       - `updateCredit()` (Retire l'argent).
+       - Met à jour le solde dans `$_SESSION` (Temps réel).
+       - Enregistre dans `PurchaseRepository::add()`.
+   - Redirection : Vers la boutique avec un message de succès personnalisé.
+
+NOTE :
+Le stock n'est pas décompté ici car le projet est réglé sur un stock illimité.

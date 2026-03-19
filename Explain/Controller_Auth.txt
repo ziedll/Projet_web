@@ -1,0 +1,23 @@
+CONTRÔLEUR : AuthController
+FICHIER : src/Controllers/AuthController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. login()
+   - Logique :
+     - Si l'utilisateur est déjà connecté, le redirige vers l'accueil.
+     - Si une méthode POST est reçue : Cherche l'utilisateur par son email.
+     - Vérifie le mot de passe via `password_verify()`.
+     - Si OK : Connecte via `Auth::login($user)`.
+     - Si KO : Affiche une erreur.
+
+2. register()
+   - Logique :
+     - Vérifie si l'email existe déjà en base.
+     - Si libre : Hashe le mot de passe (`PASSWORD_DEFAULT`), donne des crédits de bienvenue (100) et crée le compte.
+
+3. logout()
+   - Rôle : Termine la session et renvoie vers l'accueil.
+
+SÉCURITÉ :
+Toute la sécurité repose sur le hashage (non réversible) des mots de passe. N'essayez jamais de lire un mot de passe en clair dans la base de données !

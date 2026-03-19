@@ -1,0 +1,22 @@
+REPOSITORY : ArticleRepository
+FICHIER : src/Repositories/ArticleRepository.php
+TABLE SQL : `article`
+
+MÉTHODES DÉTAILLÉES :
+
+1. getAll() (Surchargé)
+   - Rôle : Récupère tous les articles du plus récent au plus ancien (`ORDER BY date_de_creation DESC`).
+
+2. getLatest($limit = 3)
+   - Paramètre : Le nombre d'articles à récupérer.
+   - Rôle : Utilisé sur la page d'accueil pour n'afficher qu'un aperçu des dernières news.
+
+3. save($data, $id = null)
+   - Paramètres : `$data` (Données du formulaire), `$id` (ID de l'article si mise à jour).
+   - Logique :
+     - Si `$id` est fourni : Exécute une requête `UPDATE`. Gère la modification optionnelle de l'image.
+     - Si `$id` est `null` : Exécute une requête `INSERT` pour créer un nouvel article.
+   - Utilisation : Utilisé dans l'administration pour ajouter ou modifier des news.
+
+NOTE :
+Cette classe permet de séparer la structure de la base de données (colonnes 'titre', 'content', 'image') de la logique d'affichage.

@@ -1,0 +1,27 @@
+CONTRÔLEUR : AdminController
+FICHIER : src/Controllers/AdminController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. __construct()
+   - Rôle : Sécurise tout le contrôleur. Appelle `Auth::requireAdmin()` immédiatement. Si l'utilisateur n'est pas admin, il ne pourra jamais accéder aux autres fonctions.
+
+2. index()
+   - Rôle : Affiche le dashboard d'administration.
+   - Paramètres GET : `section` (articles, boutique, users) et `edit` (ID de l'élément à modifier).
+   - Logique : Charge toutes les données nécessaires pour les listes et, si un `edit` est demandé, charge l'élément spécifique à mettre dans le formulaire.
+
+3. handleArticle() / handleProduct() / handleUser()
+   - Rôle : Traitement des formulaires POST.
+   - Logique : 
+     - Récupère les données POST.
+     - Gère les téléchargements d'images si nécessaire via `handleUpload()`.
+     - Appelle `save()`, `update()` ou `create()` sur le repository adéquat.
+     - Redirige avec un message de succès (msg).
+
+4. handleUpload($file) (Privé)
+   - Paramètre : Le fichier provenant de `$_FILES`.
+   - Rôle : Utilitaire de sécurité. Vérifie l'erreur, crée le dossier `uploads/` si besoin, génère un nom de fichier unique (`uniqid`) et déplace le fichier sur le disque.
+
+NOTE :
+Ce contrôleur est le plus complexe car il manipule l'ensemble de l'écosystème du projet.

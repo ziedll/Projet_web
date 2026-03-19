@@ -1,0 +1,56 @@
+ARCHITECTURE GLOBALE DU PROJET
+==============================
+
+Ce projet suit l'architecture MVC (Modèle-Vue-Contrôleur), qui sépare la logique, les données et l'affichage. Voici comment tout est lié :
+
+1. LE FLUX D'UNE REQUÊTE (Le chemin parcouru)
+--------------------------------------------
+Quand vous cliquez sur un lien (ex: /boutique) :
+
+A. .htaccess : Redirige tout vers index.php.
+B. index.php : Initialise le Router et définit les routes.
+C. Router : Voit que '/boutique' correspond à 'BoutiqueController->index()'.
+D. Controller : Exécute la logique (ex: vérifier si l'utilisateur est connecté).
+E. Repository : Le contrôleur demande au Repository de chercher les produits en base de données.
+F. Database : Le Repository utilise la classe Database pour parler à MySQL.
+G. Template : Le contrôleur envoie les produits trouvés à la vue (boutique.php).
+H. Layout : Le contenu de la vue est injecté dans le gabarit global (layout.php) et envoyé au navigateur.
+
+
+2. LES RESPONSABILITÉS (Qui fait quoi ?)
+----------------------------------------
+
+- Dossier Core/ : Les "fondations" (Router, Connexion BDD, Sessions). On n'y touche presque jamais.
+- Dossier Controllers/ : Les "chefs d'orchestre". Ils reçoivent les requêtes, décident de ce qu'il faut faire et appellent les bons outils.
+- Dossier Repositories/ : Les "bibliothécaires". Ils sont les seuls à avoir le droit de lire ou d'écrire dans la base de données.
+- Dossier templates/ : Les "artistes". Ils ne contiennent que du HTML et un peu de PHP pour afficher les variables.
+- Dossier assets/ : Les "accessoires" (CSS, JS, Images). Ils gèrent l'apparence et l'interactivité côté client.
+
+
+3. SCHÉMA DES DÉPENDANCES
+-------------------------
+
+[ UTILISATEUR ]
+      |
+      v
+[   ROUTER    ] <--- (Définit les URLs)
+      |
+      v
+[ CONTROLLER  ] <---> [   AUTH    ] (Vérifie les droits)
+      |
+      v
+[ REPOSITORY  ] <---> [ DATABASE  ] (Parle à MySQL)
+      |
+      v
+[  TEMPLATE   ] <--- (Génère le HTML)
+      |
+      v
+[   LAYOUT    ] --- (Affiche le site complet)
+
+
+4. POURQUOI CETTE STRUCTURE ?
+-----------------------------
+Cette organisation permet de :
+- Faciliter la maintenance (si un bug est en BDD, on sait que c'est dans le Repository).
+- Travailler en équipe (un designer s'occupe des templates, un développeur des controllers).
+- Faire évoluer le site facilement (ex: ajouter un système de grade juste en modifiant le UserRepository).

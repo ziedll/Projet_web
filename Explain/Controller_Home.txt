@@ -1,0 +1,15 @@
+CONTRÔLEUR : HomeController
+FICHIER : src/Controllers/HomeController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. index()
+   - Rôle : Gère l'affichage dynamique de la page d'accueil.
+   - Logique :
+     - Demande les 3 derniers articles au `ArticleRepository`.
+     - Prépare le titre de la page.
+     - Si un formulaire de contact était soumis (POST), prépare un message de remerciement.
+   - Vue : `templates/pages/home.php`.
+
+RÔLE STRATÉGIQUE :
+C'est souvent ici qu'on ajoute les nouveaux modules "phares" qui doivent être visibles dès l'arrivée de l'utilisateur.

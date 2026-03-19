@@ -1,0 +1,22 @@
+CLASSE : Controller (Base)
+FICHIER : src/Controllers/Controller.php
+
+DESCRIPTION :
+C'est la classe mère de tous les contrôleurs du site. Elle fournit les outils nécessaires pour gérer l'affichage et les redirections.
+
+MÉTHODES DÉTAILLÉES :
+
+1. render($view, $data = [])
+   - Paramètres :
+     - `$view` : Le nom du fichier vue (ex: 'boutique').
+     - `$data` : Tableau associatif contenant les variables à passer à la page (ex: ['produits' => $p]).
+   - Rôle :
+     - `extract($data)` : Transforme les clés du tableau en vraies variables PHP.
+     - `ob_start()` : Démarre la capture de contenu. Tout ce qui est affiché par le template `templates/pages/$view.php` est mis en mémoire.
+     - `require_once 'layout.php'` : Affiche le gabarit général qui "englobe" le contenu capturé.
+   - Utilisation : C'est la méthode finale appelée à la fin de chaque action pour afficher la page à l'utilisateur.
+
+2. redirect($url)
+   - Paramètre : `$url` (L'adresse de destination).
+   - Rôle : Envoie un en-tête HTTP de redirection et arrête le script immédiatement.
+   - Utilisation : Après avoir soumis un formulaire ou en cas d'erreur fatale.

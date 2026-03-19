@@ -1,0 +1,32 @@
+GUIDE DES ROUTES - COMMENT ÇA MARCHE ?
+======================================
+
+Le système de routes permet de passer d'une "URL propre" à une action technique en PHP.
+
+1. CONFIGURATION (index.php)
+----------------------------
+C'est ici que l'on déclare toutes les pages accessibles.
+Format : `$router->add('/une-url', 'NomControlleur', 'nomMethode');`
+
+2. LISTE DES ROUTES ACTUELLES :
+
+- /                 => HomeController->index()      (Navigation principale)
+- /actualite        => ActualiteController->index() (Liste et détails)
+- /boutique         => BoutiqueController->index()  (Grille produits)
+- /boutique/buy     => BoutiqueController->buy()    (LOGIQUE D'ACHAT)
+- /login            => AuthController->login()      (Formulaire accès)
+- /register         => AuthController->register()   (Création compte)
+- /profile          => ProfileController->index()   (Tableau de bord)
+- /profile/update   => ProfileController->update()  (Sauvegarde profil)
+- /history          => ProfileController->history() (Liste achats)
+- /logout           => AuthController->logout()     (Fin de session)
+- /admin            => AdminController->index()     (Dashboard Admin)
+
+3. COMMENT AJOUTER UNE PAGE ?
+----------------------------
+A. Créez un Contrôleur dans `src/Controllers/`.
+B. Créez un Template dans `templates/pages/`.
+C. Déclarez la route dans `index.php`.
+D. Ajoutez un lien dans la Navbar (`templates/partials/header.php`).
+
+C'est aussi simple que cela !

@@ -1,0 +1,19 @@
+CONTRÔLEUR : LeaderboardController
+FICHIER : src/Controllers/LeaderboardController.php
+
+DESCRIPTION :
+Gère l'affichage du classement des joueurs sur le serveur.
+
+MÉTHODES DÉTAILLÉES :
+
+1. index()
+   - Rôle : Génère et affiche le Top 50 des joueurs.
+   - Logique :
+     - Utilise un algorithme de génération de pseudos aléatoires (combinaison de préfixes et suffixes) pour créer 50 "faux joueurs".
+     - Attribue un solde de crédits aléatoire compris entre 100 et 50 000 à chaque joueur.
+     - Trie la liste par ordre décroissant de crédits (`usort`).
+     - Calcule le rang (1 à 50) de chaque joueur.
+   - Vue : `templates/pages/leaderboard.php`.
+
+NOTE TECHNIQUE :
+Ce contrôleur est conçu pour la démonstration avec des données factices. Pour un usage réel, on remplacerait la génération aléatoire par une requête SQL sur la table `user` (en excluant les admins).

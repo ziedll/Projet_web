@@ -1,0 +1,36 @@
+STRUCTURE SQL - GUIDE EXPLICATION
+================================
+
+Voici le schéma actuel de votre base de données et le rôle de chaque table :
+
+1. TABLE `user`
+---------------
+- `id` : Unique (Clé primaire).
+- `pseudo` : Nom d'affichage.
+- `email` : Identifiant de connexion.
+- `mdp` : Mot de passe (SÉCURISÉ/HASHÉ).
+- `role` : 'user' ou 'admin'.
+- `credit` : Monnaie virtuelle du joueur.
+- `avatar/description` : Champs de personnalisation (Extranet).
+- `discord/twitter/youtube` : Réseaux sociaux intégrés.
+
+2. TABLE `boutique`
+-------------------
+- `titre` : Nom du produit.
+- `prix` : Son coût en crédits.
+- `image` : Son visuel.
+- `quantite` : Optionnel (utilisé pour les stocks).
+
+3. TABLE `article`
+------------------
+- `titre/content` : Contenu des actualités.
+- `image` : Image mise en avant.
+- `author_id` : Lien vers l'admin qui a écrit l'article.
+
+4. TABLE `purchase_history` (NEW)
+---------------------------
+- Fait le lien entre un acheteur et un produit.
+- Garde une trace immuable des transactions (date et prix payé).
+
+COMMANDE POUR APPLIQUER LES CHANGEMENTS :
+Si vous modifiez ce fichier manuellement, assurez-vous de toujours appliquer les migrations via l'onglet SQL de phpMyAdmin.

@@ -1,0 +1,24 @@
+REPOSITORY : UserRepository
+FICHIER : src/Repositories/UserRepository.php
+TABLE SQL : `user`
+
+MÉTHODES DÉTAILLÉES :
+
+1. getByEmail($email)
+   - Rôle : Utilisée par le système de connexion pour trouver le compte lié à un email.
+
+2. create($data)
+   - Rôle : Crée un nouveau compte (Inscription). Hashage automatique des mots de passe géré en amont par le contrôleur.
+
+3. updateProfile($id, $data)
+   - Rôle : Gère l'Espace Joueur (Extranet). Met à jour l'avatar (via COALESCE pour garder l'ancien si aucun nouveau n'est envoyé), la description et les liens sociaux (Discord, Twitter, Youtube).
+
+4. updateCredit($id, $amount)
+   - Paramètres : `$id` de l'utilisateur, `$amount` (montant positif pour ajouter, négatif pour retirer).
+   - Rôle : Modifie le solde de l'utilisateur de manière sécurisée en base de données.
+
+5. getFreshData($id)
+   - Rôle : Récupère uniquement le rôle et les crédits. Permet de mettre à jour la session PHP en temps réel sans recharger toutes les informations lourdes.
+
+NOTE :
+Cette classe regroupe toute l'intelligence liée à la gestion des joueurs et de leur économie sur le serveur.

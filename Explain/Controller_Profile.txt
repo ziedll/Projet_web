@@ -1,0 +1,26 @@
+CONTRÔLEUR : ProfileController
+FICHIER : src/Controllers/ProfileController.php
+
+MÉTHODES DÉTAILLÉES :
+
+1. __construct()
+   - Sécurité : `Auth::requireLogin()`. Seuls les membres ont un profil.
+
+2. index()
+   - Rôle : Affiche les données personnelles (Extranet).
+
+3. update()
+   - Rôle : Traitement du formulaire d'édition de profil.
+   - Logique :
+     - Récupère bio et liens sociaux.
+     - Gère l'upload de l'avatar via `handleAvatarUpload()`.
+     - Met à jour la BDD et la session en cours pour que la Navbar change immédiatement.
+
+4. history()
+   - Rôle : Affiche la liste des transactions du joueur via la vue `history`.
+
+5. handleAvatarUpload($file) (Privé)
+   - Rôle : Similaire à celui de l'admin, mais stocke spécifiquement dans `uploads/avatars/` pour une meilleure organisation.
+
+UTILISATION :
+Cœur du système "Axe 2 : Espace Joueur".

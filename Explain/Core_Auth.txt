@@ -1,0 +1,28 @@
+CLASSE : Auth (Core)
+FICHIER : src/Core/Auth.php
+
+DESCRIPTION :
+Cette classe est le système central de sécurité et de session du projet. Elle utilise les sessions PHP pour maintenir l'état de connexion de l'utilisateur.
+
+MÉTHODES DÉTAILLÉES :
+
+1. startSession()
+   - Rôle : Vérifie si une session PHP est déjà lancée (`PHP_SESSION_NONE`) et la démarre si nécessaire.
+   - Utilisation : Appelée en interne par presque toutes les autres méthodes pour garantir l'accès à `$_SESSION`.
+
+2. login($user)
+   - Paramètre : `$user` (tableau associatif contenant les données de l'utilisateur provenant de la BDD).
+   - Rôle : Initialise la session et enregistre l'utilisateur connecté dans `$_SESSION['user']`.
+
+3. logout()
+   - Rôle : Déconnecte l'utilisateur en supprimant la clé `user` de la session et en détruisant totalement la session PHP pour plus de sécurité.
+
+4. getUser()
+   - Retour : Le tableau de l'utilisateur connecté ou `null`.
+   - Rôle : Permet de récupérer n'importe où dans le code les infos du joueur actuel (pseudo, email, crédits, etc.).
+
+5. isLoggedIn() & isAdmin()
+   - Rôle : Verrous de sécurité rapides. `isLoggedIn` vérifie la présence d'un utilisateur, `isAdmin` vérifie si sa colonne `role` vaut 'admin'.
+
+6. requireLogin() & requireAdmin()
+   - Rôle : Gardiens d'accès. Si la condition n'est pas remplie, elles arrêtent l'exécution (`exit`) et redirigent immédiatement l'utilisateur vers la page de connexion ou l'accueil.

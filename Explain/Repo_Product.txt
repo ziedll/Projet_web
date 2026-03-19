@@ -1,0 +1,23 @@
+REPOSITORY : ProductRepository
+FICHIER : src/Repositories/ProductRepository.php
+TABLE SQL : `boutique`
+
+MÉTHODES DÉTAILLÉES :
+
+1. save($data, $id = null)
+   - Rôle : Enregistre ou modifie un produit de la boutique.
+   - Données gérées : Titre, prix (Crédits), description et image.
+
+2. updateQuantity($id, $newQuantity)
+   - Rôle : Met à jour directement le stock d'un produit spécifique.
+
+3. reduceStock($id, $quantity)
+   - Rôle : Soustrait automatiquement X unités du stock lors d'une transaction.
+   - NOTE : Bien que le stock soit actuellement réglé sur "illimité" dans les paramètres d'achat du site, cette fonction reste utile pour une future gestion manuelle.
+
+STRUCTURE SQL :
+- id : Identifiant unique.
+- titre : Nom de l'objet.
+- prix : Valeur en crédits joueurs.
+- description : Détails sur l'item.
+- image : Nom du fichier image.
